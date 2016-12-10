@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Speech Recognition plugin demo</title>
+       <script src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            function onDeviceReady(){
+
+                console.log("Device is ready");
+
+            }
+            function buildJob() {
+                var displayString = "Speak now";
+                var local = "en-US";
+                var noOfMatchStrings = 1;
+                window.plugins.speechrecognizer.startRecognize(function(result){
+                    alert(result);
+                    if (result=="jenkins" || result=="Jenkins"){
+                    var xhr= new XMLHttpRequest();
+                      //xhr.open("GET",'http://3c5b7d5c.ngrok.io/buildByToken/build?job=firstJob&token=Cordova',true);
+                      xhr.open("GET",'http://13fe1d4f.ngrok.io/buildByToken/build?job=firstJob&token=Cordova',true);
+
+                      xhr.send();
+                      textToSpeech();
+                    }
+                }, function(errorMessage){
+                    console.log("Error message: " + errorMessage);
+                }, noOfMatchStrings, displayString, local);
+            }
+
+            function textToSpeech() {
+              window.TTS.speak({
+                text: 'Your Job has been built',
+                locale: 'en-GB',
+                rate: 0.75
+              }, function () {
+                alert('success');
+              }, function (reason) {
+                alert(reason);
+    });
+  }
+          function convertTextToSpeech() {
+            var val=document.getElementById("valID").value
+            var button = document.getElementById("btn")
+            window.TTS.speak({
+              text: val,
+              locale: 'en-GB',
+              rate: 0.75
+            }, function () {
+              alert('success');
+            }, function (reason) {
+              alert(reason);
+            });
+
+          }
+            document.addEventListener("deviceready", onDeviceReady, true);
+        </script>
+        <button onclick="buildJob();">Input Voice Build Command</button>
+        <br>
+        <br>
+        <form>
+            <input type="text" id="valID" name="valueId"/>
+            <input type="button" id="btn" value="Convert To Speech" onclick="convertTextToSpeech();"/>
+            <br>
+        </form>
+    </body>
+</html>
