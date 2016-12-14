@@ -1,4 +1,4 @@
-# CMPE272ExtraCreditAssignment
+# CMPE 272 Extra Credit Assignment
 Voice Controlled Jenkins Build Application
 Problem Statement:
 Develop a simple mobile app using apache Cordova that uses Google's speech to text and vice versa feature and hooks up to Jenkins API . So your app will run a pre-defined Jenkins job by voice for example. 
